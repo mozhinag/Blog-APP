@@ -6,7 +6,7 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('user'); // remove token/user
-    navigate('/login'); // redirect
+    navigate('/'); // redirect
   };
 
   return (
