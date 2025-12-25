@@ -6,7 +6,10 @@ import userRouter from './routes/userRoutes.js';
 import morgan from 'morgan';
 import { connectDB } from './config/db.js';
 import errorHandler from './middlewares/postMiddleware.js';
-import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 connectDB();
@@ -23,12 +26,13 @@ app.use('/api/users', userRouter);
 // Error handler
 app.use(errorHandler);
 // Serve React client in production
-const __dirname = path.resolve();
+
 
 if (process.env.NODE_ENV === 'production') {
+  // Serve static files from client/dist
   app.use(express.static(path.join(__dirname, '../client/dist')));
 
-  // Catch all unmatched routes using regex (Express 5 compatible)
+  // Catch-all route
   app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
   });
