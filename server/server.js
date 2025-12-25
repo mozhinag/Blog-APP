@@ -22,18 +22,21 @@ app.use('/api/users', userRouter);
 
 // Error handler
 app.use(errorHandler);
-
 // Serve React client in production
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
 
-  // Catch all unmatched routes
-  app.get('/*', (req, res) => {
+  // Catch all unmatched routes using regex (Express 5 compatible)
+  app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
   });
+} else {
+  app.get('/', (req, res) => res.send('Please set to production'));
 }
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(
