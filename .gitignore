@@ -1,0 +1,14 @@
+# root ignores
+node_modules/
+.env
+.env.*
+dist/
+build/
+
+# frontend
+frontend/node_modules/
+frontend/dist/
+
+# backend
+backend/node_modules/
+backend/.env
