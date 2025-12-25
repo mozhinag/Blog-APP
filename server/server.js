@@ -6,6 +6,7 @@ import userRouter from './routes/userRoutes.js';
 import morgan from 'morgan';
 import { connectDB } from './config/db.js';
 import errorHandler from './middlewares/postMiddleware.js';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
