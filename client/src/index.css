@@ -1,0 +1,290 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+}
+
+p {
+  line-height: 1.7;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  line-height: 2.2;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ---------------------- */
+/* FIX: DO NOT STYLE ALL <a> */
+/* ---------------------- */
+/* Removed global: a { color: #000 } */
+
+/* Only header links */
+.header a {
+  text-decoration: none;
+  color: #1a1919d2;
+}
+
+.header a:hover {
+  color: #615e5e;
+}
+
+/* Only logo link styling */
+.logo a {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #1a1818 !important;
+}
+
+/* ---------------------- */
+/* HEADER AREA */
+/* ---------------------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 60px;
+}
+
+.header ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header ul li {
+  margin-left: 20px;
+}
+
+.header ul li a {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  text-decoration: none;
+  color: #25b6acff;
+}
+
+.header ul li a svg {
+  margin-right: 5px;
+}
+
+/* Hover effect */
+.header ul li a:hover {
+  color: #199086;
+}
+
+/* LOGO color */
+.logo a {
+  color: #25b6acff !important;
+  font-weight: bold;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+/* ---------------------- */
+/* HEADING */
+/* ---------------------- */
+
+/* Center and enlarge heading */
+.heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Make h1 bigger */
+.heading h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #25b6acff;
+}
+
+/* Make "My BlogPosts" & button on same line */
+.sub-heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto 20px;
+}
+
+.sub-heading-row p {
+  font-size: 1.8rem;
+  color: #25b6acff;
+  margin: 0;
+}
+
+.heading {
+  font-size: 5rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  color: hsla(163, 94%, 50%, 0.947);
+}
+
+.heading p {
+    font-size: 2rem;
+  color:#25b6acff;
+}
+
+/* ---------------------- */
+/* POSTS GRID */
+/* ---------------------- */
+.posts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.post {
+  background-color: #f4f4f4;
+  margin: 10px 0;
+  padding: 20px 0 10px;
+  position: relative;
+}
+
+.posts .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ---------------------- */
+/* FORMS */
+/* ---------------------- */
+.form,
+.content {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.form-group label {
+  text-align: left;
+  display: block;
+  margin: 0 0 5px 3px;
+}
+
+/* ---------------------- */
+/* FIXED BUTTON STYLE */
+/* No conflict with Bootstrap */
+/* ---------------------- */
+
+.btn-custom {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-custom:hover {
+  transform: scale(0.98);
+}
+
+.btn-block {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* ---------------------- */
+/* SPINNER */
+/* ---------------------- */
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------- */
+/* RESPONSIVE */
+/* ---------------------- */
+@media (max-width: 600px) {
+  .form {
+    width: 90%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+}
+.post-image {
+  width: 100%;
+  height: auto;
+  border: 2px solid #ccc;   /* Border */
+  border-radius: 10px;      /* Soft rounded corners */
+  padding: 3px;             /* space inside border */
+  margin-bottom: 12px;      /* space below image */
+  object-fit: cover;
+}
