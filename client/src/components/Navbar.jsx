@@ -1,8 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { logout, reset } from '../features/auth/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
 function Navbar() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user')); // get logged user
+
+    const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
+
+  // const user = JSON.parse(localStorage.getItem('user')); // get logged user
 
   // const handleLogout = () => {
   //   localStorage.removeItem('user'); // remove token/user
