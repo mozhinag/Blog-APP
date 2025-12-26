@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-
+import { logout, reset } from '../features/auth/authSlice';
 function Navbar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user')); // get logged user

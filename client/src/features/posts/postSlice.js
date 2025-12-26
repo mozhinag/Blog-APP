@@ -115,15 +115,22 @@ export const likePost = createAsyncThunk(
   'posts/likePost',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.likePost(id, token);
+      const user = thunkAPI.getState().auth.user;
+
+      if (!user || !user.token) {
+        return thunkAPI.rejectWithValue('Authentication required');
+      }
+
+      return await postService.likePost(id, user.token);
     } catch (error) {
       const message =
         error.response?.data?.message || error.message || error.toString();
+
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
+
 export const addComment = createAsyncThunk(
   "posts/addComment",
   async ({ postId, text }, thunkAPI) => {
