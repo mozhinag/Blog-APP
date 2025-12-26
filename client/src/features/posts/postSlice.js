@@ -219,6 +219,7 @@ const postSlice = createSlice({
       })
       .addCase(getPostByUserId.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isSuccess = true;
         state.post = action.payload; // <- Make sure you assign to `post`, not `posts`
       })
       .addCase(getPostByUserId.rejected, (state, action) => {

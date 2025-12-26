@@ -33,9 +33,24 @@ export const getPostByPostId = expressAsyncHandler(async (req, res) => {
 });
 
 // Get posts by user ID (public profile)
-export const getPostByUserId = expressAsyncHandler(async (req, res) => {
-  const userPosts = await posts.find({ user: req.params.id });
-  res.status(200).json(userPosts);
+// export const getPostByUserId = expressAsyncHandler(async (req, res) => {
+//   const userPosts = await posts.find({ user: req.params.id });
+//   res.status(200).json(userPosts);
+// });
+
+export const getPostByUserId = expressAsyncHandler(async (req, res) =>
+{
+  const post = await posts.findById(req.params.id)
+
+  if (!post)
+    return res.status(404).json({ message: 'Post not found' });
+  if (!req.user)
+    return res.status(401).json({ message: 'User not found' }); // Only owner can access
+  if (post.user._id.toString() !== req.user.id)
+  {
+    return res.status(401).json({ message: 'User not authorized' });
+  }
+  res.status(200).json(post);
 });
 
 /* =======================
