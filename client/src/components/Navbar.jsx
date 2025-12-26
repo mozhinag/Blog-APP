@@ -4,9 +4,14 @@ function Navbar() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user')); // get logged user
 
+  // const handleLogout = () => {
+  //   localStorage.removeItem('user'); // remove token/user
+  //   navigate('/'); // redirect
+  // };
   const handleLogout = () => {
-    localStorage.removeItem('user'); // remove token/user
-    navigate('/'); // redirect
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
   };
 
   return (
