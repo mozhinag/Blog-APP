@@ -66,7 +66,7 @@ const updatedPost = async (id, formData, token) => {
   };
 
   const response = await axios.put(`${API_URL}${id}`, formData, config);
-  return response.data.data; // return the updated post
+  return response.data; // return the updated post
 };
 const likePost = async (id, token) => {
   const config = {
