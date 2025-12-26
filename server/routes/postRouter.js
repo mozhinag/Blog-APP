@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getAllPost,
-  getMyPosts,
+  // getMyPosts,
   addPost,
   getPostByUserId,
   updatedPost,
@@ -22,7 +22,7 @@ router.get('/public/:id', getPostByPostId);
 
 // PRIVATE POSTS
 router.get('/', protect, getAllPost);
-router.get('/my', protect, getMyPosts);
+// router.get('/my', protect, getMyPosts);
 
 // CREATE & UPDATE WITH CLOUDINARY
 router.post('/', protect, upload.single('image'), addPost);

@@ -6,7 +6,7 @@ import expressAsyncHandler from 'express-async-handler';
 ======================= */
 
 // Get logged-in user's posts
-export const getUserPosts = expressAsyncHandler(async (req, res) => {
+export const getAllPost = expressAsyncHandler(async (req, res) => {
   const userPosts = await posts.find({ user: req.user.id });
   res.status(200).json(userPosts);
 });
