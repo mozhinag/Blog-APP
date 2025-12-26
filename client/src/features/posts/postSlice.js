@@ -249,10 +249,11 @@ const postSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.posts = state.posts.filter(
-          (post) => post._id !== action.payload._id
+          (post) => post._id !== action.payload.id
         );
         if (state.post?._id === action.payload._id) state.post = null;
       })
+
       .addCase(deletedPost.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;

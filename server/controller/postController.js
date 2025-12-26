@@ -115,7 +115,7 @@ export const deletePost = expressAsyncHandler(async (req, res) => {
 
   if (!post) {
     res.status(404);
-    throw new Error('Post not found');
+    throw new Error('Data not found');
   }
 
   if (post.user.toString() !== req.user.id) {
@@ -124,7 +124,8 @@ export const deletePost = expressAsyncHandler(async (req, res) => {
   }
 
   await post.deleteOne();
-  res.status(200).json({ message: 'Post deleted successfully' });
+
+  res.status(200).json({ id: req.params.id });
 });
 
 /* =======================
