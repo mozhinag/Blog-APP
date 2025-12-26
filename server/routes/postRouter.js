@@ -12,26 +12,28 @@ import {
   getPostByPostId,
 } from '../controller/postController.js';
 import { protect } from '../middlewares/authMiddleware.js';
-import multer from 'multer';
+import upload from '../middlewares/upload.js';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
-// PUBLIC POSTS - NO TOKEN NEEDED
+
+// PUBLIC POSTS
 router.get('/public', getPublicPosts);
 router.get('/public/:id', getPostByPostId);
 
+// PRIVATE POSTS
+router.get('/', protect, getAllPost);
+router.get('/my', protect, getMyPosts);
 
-// PRIVATE POSTS - LOGIN REQUIRED
-router.get('/', protect, getAllPost);        // all posts (for admin maybe)
-router.get('/my', protect, getMyPosts);      // only logged-in user's posts
+// CREATE & UPDATE WITH CLOUDINARY
 router.post('/', protect, upload.single('image'), addPost);
+router.put('/:id', protect, upload.single('image'), updatedPost);
+
+// LIKE & COMMENT
 router.put('/:id/like', protect, toggleLike);
 router.post('/:postId/comments', protect, addComment);
 
 // SINGLE POST
 router.get('/:id', protect, getPostByUserId);
-router.put('/:id', protect, upload.single('image'), updatedPost);
 router.delete('/:id', protect, deletePost);
-
 
 export default router;
