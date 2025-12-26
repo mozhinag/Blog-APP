@@ -32,15 +32,13 @@ export const addPost = expressAsyncHandler(async (req, res, next) => {
       });
     }
 
-   const post = await posts.create({
-  ...req.body,
-  user: req.user.id,
-  image: req.file ? req.file.filename : null,
-  category: req.body.category || 'Other',
- likes: [],
-
-
-});
+  const post = await posts.create({
+    ...req.body,
+    user: req.user.id,
+    image: req.file ? req.file.path : null, // ✅ Cloudinary URL
+    category: req.body.category || 'Other',
+    likes: [],
+  });
 
 
     return res.status(200).json(post);
@@ -63,7 +61,7 @@ export const getPostByPostId = async (req, res) => {
 export const getPostByUserId = expressAsyncHandler(async (req, res) => {
   const post = await posts
     .findById(req.params.id)
-    
+
 
   if (!post) return res.status(404).json({ message: 'Post not found' });
 
@@ -99,7 +97,7 @@ export const updatedPost = expressAsyncHandler(async (req, res, next) => {
 
     const updateData = {
       title: req.body.title || post.title,
-      image: req.file ? req.file.filename : post.image,
+      image: req.file ? req.file.path : post.image,
       content: req.body.content || post.content,
       category: req.body.category || post.category, // <-- NEW
       likes: req.body.likes !== undefined ? req.body.likes : post.likes, // <-- NEW

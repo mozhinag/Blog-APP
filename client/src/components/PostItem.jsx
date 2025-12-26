@@ -55,7 +55,7 @@ function PostItem({
 
       {image && (
         <img
-          src={`/uploads/${image}`}
+          src={image}
           alt={title}
           style={{
             width: '100%',

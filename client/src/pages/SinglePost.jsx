@@ -106,7 +106,7 @@ function SinglePost() {
       {post.image && (
         <div className="text-center mt-4">
           <img
-            src={`/uploads/${post.image}`}
+            src={post.image}
             alt={post.title}
             style={{
               maxWidth: '80%',

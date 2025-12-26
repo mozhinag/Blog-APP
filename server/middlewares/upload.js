@@ -1,32 +1,15 @@
 import multer from 'multer';
-import path from 'path';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from '../config/cloudinary.js';
 
-// Storage engine
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Folder to store images
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // 172345234.png
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'blog-app',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'svg', 'webp'],
   },
 });
 
-// File filter
-function fileFilter(req, file, cb) {
-  const allowed = [
-    'image/jpeg',
-    'image/jpg',
-    'image/png',
-    'image/svg+xml',
-    'image/webp',
-  ];
-  if (allowed.includes(file.mimetype)) cb(null, true);
-  else cb(new Error('Only JPG, JPEG, PNG, SVG, WEBP allowed'), false);
-}
-
-const upload = multer({
-  storage,
-  fileFilter,
-});
+const upload = multer({ storage });
 
 export default upload;
