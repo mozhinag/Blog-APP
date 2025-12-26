@@ -32,7 +32,10 @@ function SinglePost() {
   if (isLoading) return <Spinner />;
   if (!post) return <h2 className="text-center mt-5">Post not found</h2>;
 
-  const isOwner = user?._id === post?.user;
+  // const isOwner = user?._id === post?.user;
+const isOwner =
+  post?.user && (post.user._id || post.user).toString() === user?._id;
+
   const alreadyLiked = Array.isArray(post?.likes)
     ? user?._id && post.likes.includes(user._id)
     : false;
@@ -41,10 +44,17 @@ function SinglePost() {
     ? post.likes.length
     : post?.likes || 0;
 
+  // const handleLike = () => {
+  //   if (!user) return alert('Login required');
+  //   dispatch(likePost(post._id));
+  // };
   const handleLike = () => {
     if (!user) return alert('Login required');
+    if (isOwner) return;
+
     dispatch(likePost(post._id));
   };
+
 
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
@@ -90,6 +100,9 @@ function SinglePost() {
         <button
           className="btn btn-light"
           onClick={handleLike}
+          disabled={isOwner}
+          title={isOwner ? 'You cannot like your own post' : 'Like'}
+          style={{ cursor: isOwner ? 'not-allowed' : 'pointer' }}
         >
           <FaHeart color={alreadyLiked ? 'red' : 'grey'} /> {likeCount}
         </button>

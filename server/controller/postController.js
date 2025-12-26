@@ -130,47 +130,55 @@ export const deletePost = expressAsyncHandler(async (req, res) => {
 /* =======================
    LIKES
 ======================= */
+
 export const toggleLike = expressAsyncHandler(async (req, res) => {
   const post = await posts.findById(req.params.id);
-  if (!post)
-    return res.status(404).json({ message: 'Post not found' });
 
-  const userId = req.user.id; // Fix corrupted data
-  
-  if (!Array.isArray(post.likes))
-  {
+  if (!post) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
+
+  const userId = req.user.id;
+
+  // 🚫 BLOCK SELF-LIKE
+  if (post.user.toString() === userId) {
+    return res.status(403).json({
+      message: 'You cannot like your own post',
+    });
+  }
+
+  if (!Array.isArray(post.likes)) {
     post.likes = [];
   }
-  if (post.likes.includes(userId))
-  {
+
+  if (post.likes.includes(userId)) {
     post.likes = post.likes.filter((id) => id.toString() !== userId);
-  }
-  else {
+  } else {
     post.likes.push(userId);
   }
+
   await post.save();
   res.status(200).json(post);
 });
+
 // export const toggleLike = expressAsyncHandler(async (req, res) => {
 //   const post = await posts.findById(req.params.id);
+//   if (!post)
+//     return res.status(404).json({ message: 'Post not found' });
 
-//   if (!post) {
-//     res.status(404);
-//     throw new Error('Post not found');
-//   }
+//   const userId = req.user.id; // Fix corrupted data
 
-//   const userId = req.user.id;
-
-//   if (!Array.isArray(post.likes)) {
+//   if (!Array.isArray(post.likes))
+//   {
 //     post.likes = [];
 //   }
-
-//   if (post.likes.includes(userId)) {
+//   if (post.likes.includes(userId))
+//   {
 //     post.likes = post.likes.filter((id) => id.toString() !== userId);
-//   } else {
+//   }
+//   else {
 //     post.likes.push(userId);
 //   }
-
 //   await post.save();
 //   res.status(200).json(post);
 // });
