@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
- "scripts": {
-  "server": "cd server && nodemon server.js",
-  "client": "npm run dev --prefix client",
-  "dev": "concurrently \"npm run server\" \"npm run client\"",
-
-  "build": "npm install --prefix client && npm run build --prefix client",
-  "start": "node server/server.js"
-},
+  "scripts": {
+    "server": "cd server && nodemon server.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "cd client && npm install --include=dev && npm run build",
+    "start": "node server/server.js"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
